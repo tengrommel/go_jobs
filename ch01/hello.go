@@ -11,5 +11,7 @@ func add(a int, b int) int {
 }
 
 func main() {
-	fmt.Println("hello")
+	var c int
+	c = add(100, 200)
+	fmt.Println(c)
 }
