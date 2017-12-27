@@ -21,4 +21,16 @@
 运行命令
 
     go run hello.go test.go
-    
+
+- channel
+
+>管道，类似unix/linux中的pipe
+<br>多个goroutine之间通过channel进行通信<br>
+支持任何类型
+
+    func main() {
+        pipe := make(chan int, 3)
+        pipe <- 1
+        pipe <- 2
+    }
+
