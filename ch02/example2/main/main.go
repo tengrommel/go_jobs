@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/tengrommel/go_jobs/ch02/example2/add"
+	_ "github.com/tengrommel/go_jobs/ch02/example2/test"
 )
 
 func main() {
