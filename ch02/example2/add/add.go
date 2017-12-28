@@ -1,9 +1,9 @@
 package add
 
-var Name string
-var Age int
+var Name string = "xxxx"
+var Age int = 100
 
-func Test() {
+func init() {
 	Name = "hello world"
 	Age = 10
 }
