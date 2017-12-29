@@ -27,3 +27,13 @@ const identifier [type] = value，其中type可以省略<br>
         b
         c
     )
+
+    var (
+        a = 1
+        b = 3
+    )
+
+## 值类型和引用类型
+
+1.值类型：变量存储值，内存通常在栈中分配。 int float bool string struct
+2.引用类型：变量存储的是一个地址，这个地址存储最终的值。内存通常在堆上分配。通过GC回收。 指针 slice map chan
