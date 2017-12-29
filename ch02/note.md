@@ -41,3 +41,10 @@ const identifier [type] = value，其中type可以省略<br>
 ## 变量的作用域
 1.在函数内部
 2.在函数外部作用于整个包，大写为整个程序
+
+## 类型转换
+
+type(variable)
+
+    var a int = 8;
+    var b int32=int32(a)

@@ -23,7 +23,6 @@ func test() {
 		fmt.Println(b)
 	}
 	// fmt.Println(b)
-
 }
 
 func main() {
