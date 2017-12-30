@@ -12,7 +12,7 @@ type Student struct {
 	score int
 }
 
-func (p Student)Print()  {
+func (p *Student)Print()  {
 	fmt.Println("name:", p.name)
 	fmt.Println("age:", p.age)
 	fmt.Println("score:", p.score)
@@ -25,6 +25,6 @@ func main() {
 		age:20,
 		score:89,
 	}
-	t = stu
+	t = &stu
 	t.Print()
 }
