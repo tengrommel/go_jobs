@@ -1,12 +1,22 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Student struct {
 	Name string
 	Age int
 	Score float64
 	next *Student
+}
+
+func trans(h *Student)  {
+	for h!=nil{
+		fmt.Println(*h)
+		h = h.next //(*p).next go简化
+	}
+
 }
 
 func main() {
@@ -21,10 +31,5 @@ func main() {
 	stu1.Score = 90
 
 	head.next = &stu1
-
-	var p *Student = &head
-	for p!=nil{
-		fmt.Println(*p)
-		p = p.next //(*p).next go简化
-	}
+	trans(&head)
 }
