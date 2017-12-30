@@ -29,3 +29,6 @@
 *string底层就是一个byte数组，但不可变<br>要改变需要转换为byte(中文rune)*
 
 ## sort包
+
+## map
+> key-value的数据结构，又叫字典或关联数组
