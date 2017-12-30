@@ -30,6 +30,18 @@ func main() {
 	stu1.Age = 18
 	stu1.Score = 90
 
+	var stu2 Student
+	stu2.Name = "stu2"
+	stu2.Age = 18
+	stu2.Score = 90
+
+	var stu3 Student
+	stu3.Name = "stu3"
+	stu3.Age = 18
+	stu3.Score = 90
+
 	head.next = &stu1
+	stu1.next = &stu2
+	stu2.next = &stu3
 	trans(&head)
 }
