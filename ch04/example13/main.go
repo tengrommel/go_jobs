@@ -46,15 +46,18 @@ func testRWLock()  {
 		go func(b map[int]int) {
 			rwlock.Lock()
 			b[9] = rand.Intn(100)
+			time.Sleep(10*time.Millisecond)
 			rwlock.Unlock()
 		}(a)
 	}
 	for i := 0; i<100;i++{
 		go func(b map[int]int) {
-			rwlock.RLock()
-			fmt.Println(a)
-			rwlock.RUnlock()
-			atomic.AddInt64(&count,1)
+			for {
+				rwlock.RLock()
+				time.Sleep(time.Millisecond)
+				rwlock.RUnlock()
+				atomic.AddInt64(&count, 1)
+			}
 		}(a)
 	}
 
