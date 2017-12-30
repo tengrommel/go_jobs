@@ -2,6 +2,13 @@ package main
 
 import "fmt"
 
+func test1()  {
+	var a [10] int
+	b := a
+	b[0] = 200
+	fmt.Println(a[0])
+}
+
 func main() {
 	var a [10]int
 	j := 9
@@ -16,4 +23,5 @@ func main() {
 	for index, item := range a{
 		fmt.Printf("a[%d]=%d\n", index, item)
 	}
+	test1()
 }
