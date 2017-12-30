@@ -23,8 +23,16 @@ func testFloatSort()  {
 	fmt.Println(a)
 }
 
+// 必须为排序后
+func testIntSearch()  {
+	var a = [...]int{1,6,4,0,2}
+	index := sort.SearchInts(a[:], 6)
+	fmt.Println(index)
+}
+
 func main() {
 	testIntSort()
 	testStringSort()
 	testFloatSort()
+	testIntSearch()
 }
