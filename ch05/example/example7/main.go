@@ -2,6 +2,16 @@ package main
 
 import "fmt"
 
+type integer int
+
+func (p integer) print() {
+	fmt.Println("p is", p)
+}
+
+func (p *integer)set(b integer)  {
+	*p = b
+}
+
 type Student struct {
 	Name string
 	Age int
@@ -16,7 +26,7 @@ func (p *Student) init(name string, age int, score int)  {
 	fmt.Println(p)
 }
 
-func (p *Student) get() *Student {
+func (p Student) get() Student {
 	return p
 }
 
@@ -25,4 +35,11 @@ func main() {
 	stu.init("stu", 34, 33)
 	stu1 := stu.get()
 	fmt.Println(stu1)
+
+	var a integer
+	a = 199
+	a.print()
+
+	a.set(1000)
+	a.print()
 }
