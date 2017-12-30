@@ -9,7 +9,7 @@ func test1()  {
 	fmt.Println(a[0])
 }
 
-func test3(arr [5]int)  {
+func test3(arr *[5]int)  {
 	arr[0]=3
 }
 
@@ -29,6 +29,6 @@ func main() {
 	}
 	test1()
 	var aa [5]int
-	test3(aa)
+	test3(&aa)
 	fmt.Println(aa)
 }
