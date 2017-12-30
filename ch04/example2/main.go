@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func test()  {
 	defer func() {
@@ -15,7 +18,11 @@ func test()  {
 }
 
 func main() {
-	test()
+	for   {
+		test()
+		time.Sleep(time.Second)
+	}
+
 	var a []int
 	a = append(a,10,20,383)
 	a = append(a,a...)
