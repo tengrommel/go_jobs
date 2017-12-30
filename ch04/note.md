@@ -36,3 +36,9 @@
 - 排序
 > a先获取所有key，把key排序<br>
 b进行查找
+
+# 线程同步
+
+- import("sync")
+- 互斥锁，var mu sync.Mutex
+- 读写锁，var mu sync.RWMutex
