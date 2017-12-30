@@ -25,3 +25,5 @@
 - 切片遍历方式和数组一样，可以用len()求长度
 - cap可以求出slice最大的容量，0<=cap(slice)<=len(array)，其中array是slice引用的数组
 - 切片的定义：var变量名 []类型，比如var str []string var arr []int
+
+*string底层就是一个byte数组，但不可变<br>要改变需要转换为byte(中文)*
