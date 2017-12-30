@@ -3,7 +3,12 @@ package main
 import (
 	"fmt"
 	"time"
+	"errors"
 )
+
+func initConfig() (err error) {
+	return errors.New("init config failed!")
+}
 
 func test()  {
 	defer func() {
@@ -11,9 +16,10 @@ func test()  {
 			fmt.Println(err)
 		}
 	}()
-	b := 0
-	a := 100/b
-	fmt.Println(a)
+	err := initConfig()
+	if err != nil{
+		panic(err)
+	}
 	return
 }
 
