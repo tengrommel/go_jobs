@@ -6,3 +6,5 @@
 - make:用来分配内存，主要用来分配引用类型，比如chan、map、slice。
 - append:用来追加元素到数组、slice中
 - panic和recover:用来做错误处理
+
+> new和make的区别：new返回一个地址 make返回一个实例
