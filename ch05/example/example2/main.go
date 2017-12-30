@@ -33,15 +33,15 @@ func insertTail(p *Student)  {
 	}
 }
 
-func insertHead(p *Student)  {
+func insertHead(p **Student)  {
 	for i:=0;i<10;i++{
 		var stu = Student{
 			Name: fmt.Sprintf("stu%d", i),
 			Age: rand.Intn(100),
 			Score: rand.Float64() * 100,
 		}
-		stu.next = p
-		p=&stu // 调用的是副本指针
+		stu.next = *p
+		*p=&stu
 	}
 }
 
@@ -52,8 +52,10 @@ func main() {
 	head.Age = 34
 	head.Score = 10.09483948150125
 
-	//insertTail(&head)
 
-	insertHead(head)
+
+	insertHead(&head)
+
+	//insertTail(head)
 	trans(head)
 }
