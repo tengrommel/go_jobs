@@ -16,7 +16,7 @@ func (p *Student) init(name string, age int, score int)  {
 	fmt.Println(p)
 }
 
-func (p Student) get() Student {
+func (p *Student) get() *Student {
 	return p
 }
 
