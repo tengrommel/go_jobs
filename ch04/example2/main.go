@@ -3,10 +3,8 @@ package main
 import "fmt"
 
 func main() {
-	var i int
-	fmt.Println(i)
-
-	j := new(int)
-	*j = 100
-	fmt.Println(*j)
+	var a []int
+	a = append(a,10,20,383)
+	a = append(a,a...)
+	fmt.Println(a)
 }
