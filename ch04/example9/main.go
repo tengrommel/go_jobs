@@ -34,7 +34,7 @@ func copyTest()  {
 }
 
 func testString()  {
-	s := "我是周腾"
+	s := "hello world"
 	s1 := s[0:5]
 	s2 := s[6:]
 	fmt.Println(s1)
@@ -42,7 +42,7 @@ func testString()  {
 }
 
 func testModifyString()  {
-	s := "hello world"
+	s := "我是周腾"
 	s1 := []rune(s)
 	s1[1]='0'
 	str := string(s1)
