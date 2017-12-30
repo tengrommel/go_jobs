@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func Adder() func(int) int {
 	var x int
@@ -10,9 +13,22 @@ func Adder() func(int) int {
 	}
 }
 
+func makeSuffix(suffix string) func(string) string {
+	return func(name string) string {
+		if strings.HasSuffix(name, suffix) == false{
+			return name + suffix
+		}
+		return name
+	}
+}
+
 func main() {
 	f := Adder()
 	fmt.Println(f(1))
 	fmt.Println(f(100))
 	fmt.Println(f(1000))
+	f1 := makeSuffix(".bmp")
+	fmt.Println(f1("test"))
+	f2 := makeSuffix(".txt")
+	fmt.Println(f2("day.txt"))
 }
