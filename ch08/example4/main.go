@@ -11,10 +11,13 @@ func main() {
 	ch2 := make(chan int, 10)
 
 	go func() {
-		for i:=0;i<10;i++ {
+		var i int
+		for  {
 			ch <- i
 			time.Sleep(time.Second)
 			ch2 <- i*2
+			time.Sleep(time.Second)
+			i++
 		}
 	}()
 
