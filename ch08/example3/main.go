@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func send (ch chan int, lock chan bool)  {
+func send (ch chan<- int, lock chan bool)  {
 	for i:=0;i<10;i++ {
 		ch <- i
 	}
@@ -10,7 +10,7 @@ func send (ch chan int, lock chan bool)  {
 	lock <- true
 }
 
-func recv (ch chan int, lock chan bool)  {
+func recv (ch <-chan int, lock chan bool)  {
 	for  {
 		v, ok := <- ch
 		if !ok {
