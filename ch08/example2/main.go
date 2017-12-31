@@ -24,11 +24,12 @@ func calc(taskChan chan int, resChan chan int)  {
 func main() {
 	intChan := make(chan int, 1000)
 	resultChan := make(chan int, 1000)
-	for i:=0;i<1000;i++ {
-		intChan <-i
-	}
-
-	close(intChan)
+	go func() {
+		for i:=0;i<1000000;i++ {
+			intChan <-i
+		}
+		close(intChan)
+	}()
 
 	for i:=0;i<8;i++ {
 		go calc(intChan, resultChan)
