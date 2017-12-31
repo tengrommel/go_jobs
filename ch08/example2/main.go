@@ -2,10 +2,9 @@ package main
 
 import (
 	"fmt"
-	"time"
 )
 
-func calc(taskChan chan int, resChan chan int)  {
+func calc(taskChan chan int, resChan chan int, exitChan chan bool)  {
 	for v := range taskChan{
 		flag := true
 		for i:=2;i<v;i++ {
@@ -18,21 +17,25 @@ func calc(taskChan chan int, resChan chan int)  {
 			resChan <- v
 		}
 	}
+	fmt.Println("exit")
+	exitChan<-true
 }
 
 
 func main() {
 	intChan := make(chan int, 1000)
 	resultChan := make(chan int, 1000)
+	exitChan := make(chan bool, 8)
+
 	go func() {
-		for i:=0;i<1000000;i++ {
+		for i:=0;i<100000;i++ {
 			intChan <-i
 		}
 		close(intChan)
 	}()
 
 	for i:=0;i<8;i++ {
-		go calc(intChan, resultChan)
+		go calc(intChan, resultChan, exitChan)
 	}
 
 	go func() {
@@ -41,5 +44,8 @@ func main() {
 		}
 	}()
 
-	time.Sleep(time.Second*10)
+	for i:=0;i<8;i++{
+		<- exitChan
+	}
+	close(exitChan)
 }
