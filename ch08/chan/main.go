@@ -14,7 +14,11 @@ func main() {
 
 	for  {
 		var b int
-		b =<- ch
+		b,ok :=<- ch
+		if ok == false{
+			fmt.Println("chan is close")
+			break
+		}
 		fmt.Println(b)
 	}
 }
