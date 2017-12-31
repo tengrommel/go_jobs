@@ -10,10 +10,14 @@ func main() {
 	ch = make(chan int, 10)
 	ch2 := make(chan int, 10)
 
-	for i:=0;i<10;i++ {
-		ch <- i
-		ch2 <- i*2
-	}
+	go func() {
+		for i:=0;i<10;i++ {
+			ch <- i
+			time.Sleep(time.Second)
+			ch2 <- i*2
+		}
+	}()
+
 	for  {
 		select {
 		case v := <- ch:
