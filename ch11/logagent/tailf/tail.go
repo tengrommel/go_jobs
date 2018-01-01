@@ -31,6 +31,11 @@ var (
 	tailObjMgr* TailObjMgr
 )
 
+func GetOneLine() (msg *TextMsg) {
+	msg =<- tailObjMgr.msgChan
+	return
+}
+
 func InitTail(conf []CollectConf, chanSize int) (err error) {
 	if len(conf)==0{
 		err = fmt.Errorf("invalid config")
