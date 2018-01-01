@@ -19,19 +19,19 @@ type Config struct {
 }
 
 type CollectConf struct {
-	logPath string
-	topic string
+	LogPath string
+	Topic string
 }
 
 func loadCollectConf(conf config.Configer) (err error) {
 	var cc CollectConf
-	cc.logPath = conf.String("collect::log_path")
-	if len(cc.logPath) == 0 {
+	cc.LogPath = conf.String("collect::log_path")
+	if len(cc.LogPath) == 0 {
 		err = errors.New("")
 		return
 	}
-	cc.topic = conf.String("collect::topic")
-	if len(cc.logPath) == 0 {
+	cc.Topic = conf.String("collect::topic")
+	if len(cc.LogPath) == 0 {
 		err = errors.New("")
 		return
 	}
