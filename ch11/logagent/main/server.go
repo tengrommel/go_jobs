@@ -4,6 +4,7 @@ import (
 	"github.com/tengrommel/go_jobs/ch11/logagent/tailf"
 	"github.com/astaxie/beego/logs"
 	"time"
+	"github.com/tengrommel/go_jobs/ch11/logagent/kafka"
 )
 
 func serverRun() (err error) {
@@ -20,6 +21,7 @@ func serverRun() (err error) {
 }
 
 func sendToKafka(msg *tailf.TextMsg) (err error) {
-	logs.Debug("read msg:%s, topic:%s", msg.Msg, msg.Topic)
+	//logs.Debug("read msg:%s, topic:%s", msg.Msg, msg.Topic)
+	kafka.SendToKafka(msg.Msg, msg.Topic)
 	return
 }

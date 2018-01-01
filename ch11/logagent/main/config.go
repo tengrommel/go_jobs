@@ -17,6 +17,7 @@ type Config struct {
 	logPath string
 
 	chanSize int
+	kafkaAdr string
 	collectConf []tailf.CollectConf
 }
 
@@ -54,6 +55,10 @@ func loadConf(confType, filename string) (err error) {
 	appConfig.logPath = conf.String("logs::log_path")
 	if len(appConfig.logPath) == 0{
 		appConfig.logPath = "./logs"
+	}
+	appConfig.kafkaAdr = conf.String("logs::kafka_addr")
+	if len(appConfig.kafkaAdr) == 0{
+		err = fmt.Errorf("kafka")
 	}
 
 	appConfig.chanSize, err = conf.Int("collect::chan_size")

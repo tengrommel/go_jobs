@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/astaxie/beego/logs"
 	"github.com/tengrommel/go_jobs/ch11/logagent/tailf"
+	"github.com/tengrommel/go_jobs/ch11/logagent/kafka"
 )
 
 func main() {
@@ -29,6 +30,12 @@ func main() {
 		logs.Error("init tail failed, err:%v", err)
 		return
 	}
+	err = kafka.InitKafka(appConfig.kafkaAdr)
+	if err != nil{
+		logs.Error("init kafka failed, err:%v", err)
+		return
+	}
+
 	logs.Debug("initialize success")
 	err = serverRun()
 	if err != nil{
