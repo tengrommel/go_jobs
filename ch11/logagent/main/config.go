@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/astaxie/beego/config"
 	"errors"
+	"github.com/tengrommel/go_jobs/ch11/logagent/tailf"
 )
 
 var (
@@ -15,16 +16,13 @@ type Config struct {
 	logLevel string
 	logPath string
 
-	collectConf []CollectConf
+	collectConf []tailf.CollectConf
 }
 
-type CollectConf struct {
-	LogPath string
-	Topic string
-}
+
 
 func loadCollectConf(conf config.Configer) (err error) {
-	var cc CollectConf
+	var cc tailf.CollectConf
 	cc.LogPath = conf.String("collect::log_path")
 	if len(cc.LogPath) == 0 {
 		err = errors.New("")

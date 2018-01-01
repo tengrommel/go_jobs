@@ -21,13 +21,19 @@ func main() {
 		return
 	}
 
-	logs.Debug("initialize success")
+
 	logs.Debug("load conf success, config:%v", appConfig)
 
-	err = tailf.InitTail()
+	err = tailf.InitTail(appConfig.collectConf)
 	if err != nil{
 		logs.Error("init tail failed, err:%v", err)
 		return
 	}
-
+	logs.Debug("initialize success")
+	err = serverRun()
+	if err != nil{
+		logs.Error("init tail failed, err:%v", err)
+		return
+	}
+	logs.Info("program exited")
 }

@@ -1,5 +1,10 @@
 package tailf
 
-func InitTail() (err error) {
+type CollectConf struct {
+	LogPath string
+	Topic string
+}
+
+func InitTail(conf []CollectConf) (err error) {
 	return
 }
