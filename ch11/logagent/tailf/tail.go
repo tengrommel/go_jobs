@@ -3,6 +3,8 @@ package tailf
 import (
 	"github.com/hpcloud/tail"
 	"fmt"
+	"github.com/astaxie/beego/logs"
+	"time"
 )
 
 type CollectConf struct {
@@ -54,6 +56,23 @@ func InitTail(conf []CollectConf, chanSize int) (err error) {
 		}
 		obj.tail = tails
 		tailObjMgr.tailObjs=append(tailObjMgr.tailObjs, obj)
+		go readFromTail(obj)
 	}
 	return
+}
+
+func readFromTail(tailObj *TailObj)  {
+	for true {
+		line, ok := <-tailObj.tail.Lines
+		if !ok {
+			logs.Warn("tail file close reopen, filename:%s\n", tailObj.tail.Filename)
+			time.Sleep(100*time.Millisecond)
+			continue
+		}
+		textMsg := TextMsg{
+			Msg:line.Text,
+			Topic:tailObj.conf.Topic,
+		}
+		tailObjMgr.msgChan <- &textMsg
+	}
 }
