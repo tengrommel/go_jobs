@@ -1,29 +1,85 @@
 package main
 
-import "github.com/astaxie/beego/logs"
+import (
+	"fmt"
 
-func initRedis() (err error) {
-	return
-}
+	"strings"
 
-func initEtcd() (err error) {
-	return
-}
+	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/logs"
+	"github.com/tengrommel/go_jobs/ch14/SecKill/SecProxy/service"
+)
 
-func initSec() (err error) {
+var (
+	secKillConf = &service.SecSkillConf{
+		SecProductInfoMap: make(map[int]*service.SecProductInfoConf, 1024),
+	}
+)
 
-	err = initRedis()
-	if err != nil{
-		logs.Error("init redis failed, err:%v", err)
+func initConfig() (err error) {
+	redisAddr := beego.AppConfig.String("redis_addr")
+	etcdAddr := beego.AppConfig.String("etcd_addr")
+
+	logs.Debug("read config succ, redis addr:%v", redisAddr)
+	logs.Debug("read config succ, etcd addr:%v", etcdAddr)
+
+	secKillConf.EtcdConf.EtcdAddr = etcdAddr
+	secKillConf.RedisConf.RedisAddr = redisAddr
+
+	if len(redisAddr) == 0 || len(etcdAddr) == 0 {
+		err = fmt.Errorf("init config failed, redis[%s] or etcd[%s] config is null", redisAddr, etcdAddr)
 		return
 	}
 
-	err = initEtcd()
-	if err != nil{
-		logs.Error("init etcd failed, err:%v", err)
+	redisMaxIdle, err := beego.AppConfig.Int("redis_max_idle")
+	if err != nil {
+		err = fmt.Errorf("init config failed, read redis_max_idle error:%v", err)
 		return
 	}
 
-	logs.Info("init sec succ")
+	redisMaxActive, err := beego.AppConfig.Int("redis_max_active")
+	if err != nil {
+		err = fmt.Errorf("init config failed, read redis_max_active error:%v", err)
+		return
+	}
+
+	redisIdleTimeout, err := beego.AppConfig.Int("redis_idle_timeout")
+	if err != nil {
+		err = fmt.Errorf("init config failed, read redis_idle_timeout error:%v", err)
+		return
+	}
+
+	secKillConf.RedisConf.RedisMaxIdle = redisMaxIdle
+	secKillConf.RedisConf.RedisMaxActive = redisMaxActive
+	secKillConf.RedisConf.RedisIdleTimeout = redisIdleTimeout
+
+	etcdTimeout, err := beego.AppConfig.Int("etcd_timeout")
+	if err != nil {
+		err = fmt.Errorf("init config failed, read etcd_timeout error:%v", err)
+		return
+	}
+
+	secKillConf.EtcdConf.Timeout = etcdTimeout
+	secKillConf.EtcdConf.EtcdSecKeyPrefix = beego.AppConfig.String("etcd_sec_key_prefix")
+	if len(secKillConf.EtcdConf.EtcdSecKeyPrefix) == 0 {
+		err = fmt.Errorf("init config failed, read etcd_sec_key error:%v", err)
+		return
+	}
+
+	productKey := beego.AppConfig.String("etcd_product_key")
+	if len(productKey) == 0 {
+		err = fmt.Errorf("init config failed, read etcd_product_key error:%v", err)
+		return
+	}
+
+	if strings.HasSuffix(secKillConf.EtcdConf.EtcdSecKeyPrefix, "/") == false {
+		secKillConf.EtcdConf.EtcdSecKeyPrefix = secKillConf.EtcdConf.EtcdSecKeyPrefix + "/"
+	}
+
+	secKillConf.EtcdConf.EtcdSecProductKey = fmt.Sprintf("%s%s", secKillConf.EtcdConf.EtcdSecKeyPrefix, productKey)
+	secKillConf.LogPath = beego.AppConfig.String("log_path")
+	secKillConf.LogLevel = beego.AppConfig.String("log_level")
+
 	return
 }
+
