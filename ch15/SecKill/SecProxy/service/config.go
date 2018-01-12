@@ -1,6 +1,15 @@
 package service
 
-import "sync"
+import (
+	"sync"
+	"time"
+)
+
+const (
+	ProductStatusNormal = 0
+	ProductStatusSaleOut = 1
+	ProductStatusForceSaleOut = 2
+)
 
 type RedisConf struct {
 	RedisAddr        string
@@ -23,13 +32,26 @@ type SecSkillConf struct {
 	LogLevel          string
 	SecProductInfoMap map[int]*SecProductInfoConf
 	RWSecProductLock  sync.RWMutex
+	CookieSecretKey	  string
+	UserSecAccessLimit 	int
 }
 
 type SecProductInfoConf struct {
 	ProductId int
-	StartTime int
-	EndTime   int
+	StartTime int64
+	EndTime   int64
 	Status    int
 	Total     int
 	Left      int
+}
+
+type SecRequest struct {
+	ProductId int
+	Source string
+	AuthCode string
+	SecTime string
+	Nance string
+	UserId int
+	UserAuthSign string
+	AccessTime time.Time
 }
