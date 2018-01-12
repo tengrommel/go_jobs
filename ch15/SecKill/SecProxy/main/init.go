@@ -3,8 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/tengrommel/go_jobs/ch14/SecKill/SecProxy/service"
+	"github.com/tengrommel/go_jobs/ch15/SecKill/SecProxy/service"
 	"time"
 
 	"golang.org/x/net/context"
@@ -13,13 +12,11 @@ import (
 	etcd_client "github.com/coreos/etcd/clientv3"
 	"github.com/coreos/etcd/mvcc/mvccpb"
 	"github.com/garyburd/redigo/redis"
-	"sync"
 )
 
 var (
 	redisPool  *redis.Pool
 	etcdClient *etcd_client.Client
-	rwLock sync.RWMutex
 )
 
 func initRedis() (err error) {
